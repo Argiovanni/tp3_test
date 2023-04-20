@@ -4,11 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import ilu2.Welcome;
+
 class WelcomeTest {
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testEx1() {
+		assertEquals(Welcome.welcome("bob"),"Hello,Bob");
 	}
 
 }
