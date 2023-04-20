@@ -18,8 +18,14 @@ class WelcomeTest {
 		assertEquals(Welcome.welcome("    "),"Hello, my friend");
 		assertEquals(Welcome.welcome(null),"Hello, my friend");
 	}
+	
 	@Test
 	void testEx3() {
 		assertEquals(Welcome.welcome("JERRY"),"HELLO, JERRY!");
+	}
+	
+	@Test
+	void testEx4() {
+		assertEquals(Welcome.welcome("amy,bob"),"Hello, Amy, Bob");
 	}
 }
