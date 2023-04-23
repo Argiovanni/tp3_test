@@ -1,7 +1,6 @@
 package ilu2;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Objects;
 
 public class Welcome {
@@ -12,8 +11,8 @@ public class Welcome {
 		}
 		String[][] names = splitLower_Upper(input.split(","));
 		StringBuilder msg = new StringBuilder();
-		String helloLower = getHello(countNames(names[0]));
-		String helloUpper = getHello(countNames(names[1]));
+		String helloLower = getHello(names[0]);
+		String helloUpper = getHello(names[1]);
 		if(Objects.equals(input, input.toUpperCase())) {
 			return msg.append(helloUpper.toUpperCase()).append(" !").toString();
 		}
@@ -23,6 +22,14 @@ public class Welcome {
 			msg.append(link.append(helloUpper.toUpperCase()).append(" !").toString());
 		}
 		return msg.toString();
+	}
+	
+	private static String firstLetterToUpper(String string) {
+		StringBuilder strB = new StringBuilder();
+		String s1 = string.substring(0, 1).toUpperCase();
+		String s2 = string.substring(1);
+		strB.append(s1).append(s2);
+		return strB.toString();
 	}
 	
 	private static  String[][] splitLower_Upper(String[] names) {
@@ -48,27 +55,6 @@ public class Welcome {
 		return split_names;
 	}
 	
-	private static String  getHello(String[] names) {
-		StringBuilder hello = new StringBuilder("Hello");
-		for (int i = 0; i < names.length-1; i++) {
-			String name = names[i];
-			String s1 = name.substring(0, 1).toUpperCase();
-			String s2 = name.substring(1);
-			hello.append(", ").append(s1).append(s2);
-		}
-		if (names.length > 1) {
-			hello.append(" and ");
-			String s1 = names[names.length-1].substring(0, 1).toUpperCase();
-			String s2 = names[names.length-1].substring(1);
-			hello.append(s1).append(s2);
-		} else if (names.length == 1) {
-			String s1 = names[0].substring(0, 1).toUpperCase();
-			String s2 = names[0].substring(1);
-			hello.append(", ").append(s1).append(s2);
-		}
-		return hello.toString();
-	}
-	
 	private static String[] countNames(String[] names) {
 		ArrayList<String> distinct = new ArrayList<>();
 		for (int i = 0; i < names.length; i++) {
@@ -91,5 +77,37 @@ public class Welcome {
 			countedNames[i]=name.toString();
 		}
 		return countedNames;
+	}
+	
+	private static String getHello(String[] names) {
+		for (int i = 0; i < names.length; i++) {
+			if ("yoda".equalsIgnoreCase(names[i])) {
+				return getHello_yoda(countNames(names));
+		}	}
+		return getHello_normal(countNames(names));
+	}
+	
+	private static String  getHello_normal(String[] names) {
+		StringBuilder hello = new StringBuilder("Hello");
+		for (int i = 0; i < names.length-1; i++) {
+			hello.append(", ").append(firstLetterToUpper(names[i]));
+		}
+		if (names.length > 1) {
+			hello.append(" and ").append(firstLetterToUpper(names[names.length-1]));
+		} else if (names.length == 1) {
+			hello.append(", ").append(firstLetterToUpper(names[0]));
+		}
+		return hello.toString();
+	}
+	
+	private static String getHello_yoda(String[] names) {
+		StringBuilder hello = new StringBuilder(firstLetterToUpper(names[0]));
+		for (int i = 1; i < names.length-1; i++) {
+			hello.append(", ").append(firstLetterToUpper(names[i]));
+		}
+		if (names.length > 1) {
+			hello.append(" and ").append(firstLetterToUpper(names[names.length-1]));
+		} 
+		return hello.append(", Hello").toString();
 	}
 }
