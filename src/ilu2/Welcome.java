@@ -12,14 +12,13 @@ public class Welcome {
 		String[][] names = splitLower_Upper(input.split(","));
 		StringBuilder msg = new StringBuilder();
 		String helloLower = getHello(names[0]);
-		String helloUpper = getHello(names[1]);
+		String helloUpper = getHello(names[1]).toUpperCase();
 		if(Objects.equals(input, input.toUpperCase())) {
-			return msg.append(helloUpper.toUpperCase()).append(" !").toString();
+			return msg.append(helloUpper).append(" !").toString();
 		}
 		msg.append(helloLower);
 		if (names[1].length >0) {
-			StringBuilder link = new StringBuilder(". AND "); 
-			msg.append(link.append(helloUpper.toUpperCase()).append(" !").toString());
+			msg.append(". AND ").append(helloUpper).append(" !");
 		}
 		return msg.toString();
 	}
@@ -41,10 +40,8 @@ public class Welcome {
 			} else {
 				lowerNames.add(name.trim());
 		}	}
-		int nbUpper = upperNames.size();
-		int nbLower = lowerNames.size();
-		String[] upper = new String[nbUpper];
-		String[] lower = new String[nbLower];
+		String[] upper = new String[upperNames.size()];
+		String[] lower = new String[lowerNames.size()];
 		for (int i = 0; i < upper.length; i++) {
 			upper[i]=upperNames.get(i);
 		}
