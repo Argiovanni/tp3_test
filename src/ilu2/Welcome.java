@@ -29,9 +29,9 @@ public class Welcome {
 		ArrayList<String> lowerNames = new ArrayList<String>();
 		for (String name : names) {
 			if (Objects.equals(name, name.toUpperCase())) {
-				upperNames.add(name);
+				upperNames.add(name.trim());
 			} else {
-				lowerNames.add(name);
+				lowerNames.add(name.trim());
 		}}
 		int nbUpper = upperNames.size();
 		int nbLower = lowerNames.size();
