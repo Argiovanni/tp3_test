@@ -1,6 +1,7 @@
 package ilu2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class Welcome {
@@ -11,10 +12,10 @@ public class Welcome {
 		}
 		String[][] names = splitLower_Upper(input.split(","));
 		StringBuilder msg = new StringBuilder();
-		String helloLower = getHello(names[0]);
-		String helloUpper = getHello(names[1]);
+		String helloLower = getHello(countNames(names[0]));
+		String helloUpper = getHello(countNames(names[1]));
 		if(Objects.equals(input, input.toUpperCase())) {
-			return msg.append(helloUpper).append(" !").toString().toUpperCase();
+			return msg.append(helloUpper.toUpperCase()).append(" !").toString();
 		}
 		msg.append(helloLower);
 		if (names[1].length >0) {
@@ -25,14 +26,14 @@ public class Welcome {
 	}
 	
 	private static  String[][] splitLower_Upper(String[] names) {
-		ArrayList<String> upperNames = new ArrayList<String>();
-		ArrayList<String> lowerNames = new ArrayList<String>();
+		ArrayList<String> upperNames = new ArrayList<>();
+		ArrayList<String> lowerNames = new ArrayList<>();
 		for (String name : names) {
 			if (Objects.equals(name, name.toUpperCase())) {
 				upperNames.add(name.trim());
 			} else {
 				lowerNames.add(name.trim());
-		}}
+		}	}
 		int nbUpper = upperNames.size();
 		int nbLower = lowerNames.size();
 		String[] upper = new String[nbUpper];
@@ -66,5 +67,29 @@ public class Welcome {
 			hello.append(", ").append(s1).append(s2);
 		}
 		return hello.toString();
+	}
+	
+	private static String[] countNames(String[] names) {
+		ArrayList<String> distinct = new ArrayList<>();
+		for (int i = 0; i < names.length; i++) {
+			if (! distinct.contains(names[i])) {
+				distinct.add(names[i]);
+		}	}
+		int[] count = new int[distinct.size()];
+		for (int i = 0; i < count.length; i++) {
+			count[i] = 0;
+			for (int j = 0; j < names.length; j++) {
+				if (Objects.equals(distinct.get(i), names[j])) {
+					count[i]++;
+		}	}	}
+		String[] countedNames = new String[distinct.size()];
+		for (int i = 0; i < countedNames.length; i++) {
+			StringBuilder name = new StringBuilder(distinct.get(i));
+			if (count[i]>1) {
+				name.append(" (*").append(count[i]).append(")");
+			}
+			countedNames[i]=name.toString();
+		}
+		return countedNames;
 	}
 }
